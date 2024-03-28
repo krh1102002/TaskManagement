@@ -7,7 +7,9 @@ const user = require("./routes/user");
 const task = require("./routes/task");
 
 const app = express();
+const PORT = process.env.PORT || 5501;
 env.config();
+console.log(process.env.MONGO_URL, "");
 
 app.use(express.json());
 
@@ -20,13 +22,13 @@ mongoose
   .then(() => {
     console.log("Database connected");
   })
-  .catch(() => {
-    console.log("Database connection failed");
+  .catch((error) => {
+    console.log("Database connection failed", error.message);
   });
 
 app.use("/user", user);
 app.use("/task", task);
 
-app.listen(4000, () => {
+app.listen(PORT, () => {
   console.log("Server is Running on PORT 4000");
 });
